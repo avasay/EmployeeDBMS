@@ -1,0 +1,30 @@
+[
+  {
+    "Id": 1,
+    "FName": "Alejandrio",
+    "LName": "Vasay",
+    "Email": "alejandrio.vasay@aol.com",
+    "DateOfHire": "2014-12-05",
+    "DateOfBirth": "1975-01-01",
+    "Position": "Web Developer",
+    "Department": "IT",
+    "Address": "12345 Main Street",
+    "City": "Dallas",
+    "State": "TX",
+    "Zipcode": "76111"
+  },
+  {
+    "Id": 2,
+    "FName": "Kevin",
+    "LName": "Hart",
+    "Email": "hart@gmail.com",
+    "DateOfHire": "2011-11-15",
+    "DateOfBirth": "1945-02-02",
+    "Position": "SW Engineer",
+    "Department": "QA",
+    "Address": "2222 Market Street",
+    "City": "Arlington",
+    "State": "TX",
+    "Zipcode": "76102"
+  }
+]

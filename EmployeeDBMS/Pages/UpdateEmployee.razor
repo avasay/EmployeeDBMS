@@ -1,0 +1,165 @@
+﻿@page "/updateemployee"
+@page "/updateemployee/{employeeid:int}"
+
+@using Newtonsoft.Json;
+@using System.Text;
+@inject NavigationManager navigationManager
+@inject IConfiguration configuration
+@inject HttpClient httpClient
+
+<h3>Update Employee</h3>
+<EditForm EditContext="_editContext" OnValidSubmit="@HandleValidSubmit">
+
+    @if(errorDictionary !=null)
+    {
+        <div class="errormessages-wrapper">
+            <h5>Please correct errors</h5>
+            <div class="input-group mb-3" >  
+                <ul>
+                    @foreach(var objectDict in errorDictionary)
+                    {
+                        string a = objectDict.Key;
+                        var errors = objectDict.Value;
+                        @foreach(string err in errors)
+                        {
+                            <li>@err</li>
+                        }
+                    }
+                </ul>
+            </div>   
+        </div>
+
+     }
+
+<div class="input-group mb-3">
+    <label for="inputFName" class="col-sm-2 col-form-label">First Name</label>
+    <InputText id="inputFName" @bind-Value="empModel.FName"  class="form-control" aria-label="" />
+</div>   
+<div class="input-group mb-3">
+    <label for="inputLName" class="col-sm-2 col-form-label">Last Name</label>
+    <InputText id="inputLName" @bind-Value="empModel.LName" class="form-control" aria-label="" />
+</div>   
+<div class="input-group mb-3">
+    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+    <InputText @bind-Value="empModel.Email" class="form-control" aria-label="" />
+</div>   
+<div class="input-group mb-3">
+    <label for="inputDateOfHire" class="col-sm-2 col-form-label">Date of Hire</label>
+    <InputDate id="inputEmail" @bind-Value="empModel.DateOfHire" class="form-control" aria-label="" />
+</div>   
+<div class="input-group mb-3">
+    <label for="inputDateOfBirth" class="col-sm-2 col-form-label">Date of Birth</label>
+    <InputDate id="inputDateOfBirth" @bind-Value="empModel.DateOfBirth" class="form-control" aria-label="" />
+</div>  
+<div class="input-group mb-3">
+    <label for="inputPosition" class="col-sm-2 col-form-label">Position</label>
+    <InputText id="inputPosition" @bind-Value="empModel.Position" class="form-control" aria-label="" />
+</div> 
+<div class="input-group mb-3">
+    <label for="inputDepartment" class="col-sm-2 col-form-label">Department</label>
+    <InputText id="inputDepartment" @bind-Value="empModel.Department" class="form-control" aria-label="" />
+</div> 
+<div class="input-group mb-3">
+    <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
+    <InputText @bind-Value="empModel.Address" class="form-control" aria-label="" />
+</div>   
+<div class="input-group mb-3">
+    <label for="inputCity" class="col-sm-2 col-form-label">City</label>
+    <InputText id="inputCity" @bind-Value="empModel.City" class="form-control" aria-label="" />
+</div>   
+<div class="input-group mb-3">
+    <label for="inputState" class="col-sm-2 col-form-label">State</label>
+    <InputText id="inputState" @bind-Value="empModel.State" class="form-control" aria-label="" />
+</div> 
+<div class="input-group mb-3">
+    <label for="inputZipcode" class="col-sm-2 col-form-label">Zipcode</label>
+    <InputText id="inputZipcode" @bind-Value="empModel.Zipcode" class="form-control" aria-label="" />
+</div> 
+
+<div class="input-group mb-3">
+<button type="submit">Submit</button> <a href="/displayemployees" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
+</div>
+
+</EditForm>
+
+@code {
+    [Parameter]
+    public int employeeid { get; set; }
+
+    Employee? empModel = new();
+
+    public IDictionary<string, string[]>? errorDictionary;
+    EditContext _editContext;
+    ValidationMessageStore msgStore;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _editContext = new EditContext(empModel);
+        msgStore = new ValidationMessageStore(_editContext);
+
+        HttpResponseMessage responseMessage = new();
+        try
+        {
+            string restSvcApiUrl = configuration["RestSvc:ApiUrl"];
+            string urlID = restSvcApiUrl + employeeid;
+
+            // Get the response from the given URI
+            responseMessage = await httpClient.GetAsync(urlID);
+
+            // Extract content(body) of response
+            var content = responseMessage.Content.ReadAsStringAsync().Result;
+
+            empModel = JsonConvert.DeserializeObject<Employee>(content);
+
+        }
+        catch(Exception ex)
+        {
+            System.Console.WriteLine("Exception: " + ex.Message);
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        msgStore.Clear();
+
+        HttpResponseMessage responseMessage =  new();
+
+        try
+        {
+            string restSvcApiUrl = configuration["RestSvc:ApiUrl"];
+            string body = JsonConvert.SerializeObject(empModel);
+
+            // Create a formatted text (as json) to be used for PUT or POST methods.
+            var stringContent = new StringContent(body, Encoding.UTF8, "application/json");
+
+            string urlID = restSvcApiUrl + employeeid;
+
+            // Call POST method given a URL and StringContent
+            responseMessage = await httpClient.PutAsync(urlID, stringContent);
+
+            if (responseMessage.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+
+                // Extract content(body) of response
+                var content = responseMessage.Content.ReadAsStringAsync().Result;
+
+                // Deserialize json string to my error model 
+                ValidationErrorDetails? validationErrorDetails = JsonConvert.DeserializeObject<ValidationErrorDetails>(content);
+
+                errorDictionary = validationErrorDetails.Errors;
+                
+                _editContext = new EditContext(empModel);
+                msgStore = new ValidationMessageStore(_editContext);
+            }
+            else
+            {
+                StateHasChanged();
+                navigationManager.NavigateTo("/displayemployees");
+            }
+        }
+        catch(Exception ex)
+        {
+            System.Console.WriteLine("Exception: " + ex.Message);
+        }
+    }
+}

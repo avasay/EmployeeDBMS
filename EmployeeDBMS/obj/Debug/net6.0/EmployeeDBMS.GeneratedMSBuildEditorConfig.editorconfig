@@ -1,0 +1,67 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = browser
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = true
+build_property.IncludeAllContentForSelfExtract = 
+build_property.RootNamespace = EmployeeDBMS
+build_property.RootNamespace = EmployeeDBMS
+build_property.ProjectDir = C:\Users\alejandrio.vasay\Documents\Visual Studio 2022\Blazor\edbms\EmployeeDBMS\EmployeeDBMS\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\alejandrio.vasay\Documents\Visual Studio 2022\Blazor\edbms\EmployeeDBMS\EmployeeDBMS
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/alejandrio.vasay/Documents/Visual Studio 2022/Blazor/edbms/EmployeeDBMS/EmployeeDBMS/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alejandrio.vasay/Documents/Visual Studio 2022/Blazor/edbms/EmployeeDBMS/EmployeeDBMS/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alejandrio.vasay/Documents/Visual Studio 2022/Blazor/edbms/EmployeeDBMS/EmployeeDBMS/Pages/DeleteEmployee.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGVsZXRlRW1wbG95ZWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alejandrio.vasay/Documents/Visual Studio 2022/Blazor/edbms/EmployeeDBMS/EmployeeDBMS/Pages/FetchData.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alejandrio.vasay/Documents/Visual Studio 2022/Blazor/edbms/EmployeeDBMS/EmployeeDBMS/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alejandrio.vasay/Documents/Visual Studio 2022/Blazor/edbms/EmployeeDBMS/EmployeeDBMS/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alejandrio.vasay/Documents/Visual Studio 2022/Blazor/edbms/EmployeeDBMS/EmployeeDBMS/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alejandrio.vasay/Documents/Visual Studio 2022/Blazor/edbms/EmployeeDBMS/EmployeeDBMS/Pages/CreateEmployee.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlRW1wbG95ZWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-8zku4hclod
+
+[C:/Users/alejandrio.vasay/Documents/Visual Studio 2022/Blazor/edbms/EmployeeDBMS/EmployeeDBMS/Pages/DisplayEmployees.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlzcGxheUVtcGxveWVlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-3anopeolub
+
+[C:/Users/alejandrio.vasay/Documents/Visual Studio 2022/Blazor/edbms/EmployeeDBMS/EmployeeDBMS/Pages/UpdateEmployee.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXBkYXRlRW1wbG95ZWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-9wn6tlsgja
+
+[C:/Users/alejandrio.vasay/Documents/Visual Studio 2022/Blazor/edbms/EmployeeDBMS/EmployeeDBMS/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-f5zu42s42e
+
+[C:/Users/alejandrio.vasay/Documents/Visual Studio 2022/Blazor/edbms/EmployeeDBMS/EmployeeDBMS/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-omakgoyayf

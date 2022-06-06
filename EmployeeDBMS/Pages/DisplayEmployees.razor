@@ -1,0 +1,143 @@
+﻿@page "/displayemployees"
+
+@using Newtonsoft.Json; 
+@using Newtonsoft.Json.Linq;
+@inject NavigationManager navigationManager
+@inject HttpClient httpClient
+@inject IConfiguration configuration
+@inject MyStateObject myStateObject
+@implements IDisposable
+
+<h3>Employee Management System</h3>
+
+<div id="create-link"><a href="/createemployee">Create Employee</a></div>
+
+<div>
+    <EditForm Model="@emp">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>ID</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Date of Hire</th>
+                    <th>Date of Birth</th>
+                    <th>Position</th>
+                    <th>Department</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Zipcode</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Employee content in employees)
+                {
+                <tr>
+                    <td>
+                        @{ int id = (int)content.Id; }
+                        <input name="deleteCheckbox" type="checkbox" @key="content.Id" @onchange="eventArgs => { ProcessCheckbox(id, eventArgs.Value); }"  />
+                    </td>
+                    <td>@content.Id</td>
+                    <td>@content.FName</td>
+                    <td>@content.LName</td>
+                    <td>@content.Email</td>
+                    <td>@content.DateOfHire.Value.ToShortDateString()</td>
+                    <td>@content.DateOfBirth.Value.ToShortDateString()</td>
+                    <td>@content.Position</td>
+                    <td>@content.Department</td>
+                    <td>@content.Address</td>
+                    <td>@content.City</td>
+                    <td>@content.Zipcode</td>
+                    <td>
+                        <button @onclick="() => HandleUpdateSubmit(content.Id)">Update</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="input-group mt-3">
+        <button type="submit" @onclick="@(()=>HandleDeleteSubmit())">Delete Selected</button>
+        </div>
+
+    </EditForm>
+
+</div>
+@code {
+    Employee? emp = new();
+    List<Employee> employees = new List<Employee>();
+    List<CheckboxModel> checkboxModels = new List<CheckboxModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        myStateObject.OnStateChange += StateHasChanged;
+        try
+        {
+            await FetchDatabase();
+        }
+        catch(Exception ex)
+        {
+            System.Console.WriteLine("Exception: " + ex.Message);
+        }
+    }
+
+    private async Task FetchDatabase()
+    {
+        //var emp1  = await httpClient.GetFromJsonAsync<List<Employee>>("sample-data/employees.json");
+        //employees.AddRange(emp1);
+
+        string restSvcApiUrl = configuration["RestSvc:ApiUrl"];
+        HttpResponseMessage responseMessage =  new();
+
+        responseMessage = await httpClient.GetAsync(restSvcApiUrl);
+
+
+        // Extract content(body) of response
+        string resp = responseMessage.Content.ReadAsStringAsync().Result;
+
+        JToken jToken = JToken.Parse(resp);
+        if ( jToken is JArray )
+        {
+            // Deserialize json string to Json 
+            employees = JsonConvert.DeserializeObject<List<Employee>>(resp);
+        }
+        else
+        {
+            employees.Add(JsonConvert.DeserializeObject <Employee>(resp));
+
+        }
+    }
+
+    private void HandleUpdateSubmit(int id)
+    {       
+        navigationManager.NavigateTo($"/updateemployee/{id}");
+    }
+
+    private void HandleDeleteSubmit()
+    {
+        myStateObject.SetValue(checkboxModels);
+        navigationManager.NavigateTo($"/deleteemployee");   
+    }
+    
+    private void ProcessCheckbox(int id, object checkedValue)
+    {
+        if((bool)checkedValue)
+        {
+            checkboxModels.Add(new CheckboxModel(id, (bool)checkedValue));
+            System.Console.WriteLine(id + ":" + (bool)checkedValue);
+        }
+        else
+        {
+            checkboxModels.RemoveAll(x=> x.Value == id);
+        }
+    }
+
+    public void Dispose()
+    {
+        myStateObject.OnStateChange -= StateHasChanged;
+    }
+    
+}

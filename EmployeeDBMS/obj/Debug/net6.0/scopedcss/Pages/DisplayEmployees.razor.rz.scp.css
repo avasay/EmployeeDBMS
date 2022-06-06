@@ -1,0 +1,11 @@
+body[b-3anopeolub] {
+}
+
+table[b-3anopeolub], th[b-3anopeolub], td[b-3anopeolub] {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+div#create-link[b-3anopeolub] {
+    display: block;
+}

@@ -1,0 +1,55 @@
+﻿@page "/deleteemployee"
+
+@inject NavigationManager navigationManager
+@inject IJSRuntime jsRuntime
+@inject MyStateObject myStateObject
+@inject IConfiguration configuration
+@inject HttpClient httpClient
+
+<h3>DeleteEmployee</h3>
+
+@code {
+    private List<CheckboxModel> checkboxModels;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        checkboxModels = myStateObject.Value;
+
+        try
+        {
+            string restSvcApiUrl = configuration["RestSvc:ApiUrl"];
+            HttpResponseMessage responseMessage = new();
+            if (checkboxModels.Count != 0)
+            {
+                bool confirmDeletion = await jsRuntime.InvokeAsync<bool>("confirm", "Are you sure you want to delete?");
+
+                if (checkboxModels.Count != 0)
+                {
+                    for (int i = 0; i < checkboxModels.Count; i++)
+                    {
+                        int j = checkboxModels[i].Value;
+
+                        string urlID = restSvcApiUrl + j;
+
+                        responseMessage = await httpClient.DeleteAsync(urlID);
+
+                    }
+
+                    StateHasChanged();
+                    navigationManager.NavigateTo("/displayemployees");
+                }
+            }
+            else
+            {
+                await jsRuntime.InvokeVoidAsync("alert", "Please select employee to delete.");
+                navigationManager.NavigateTo("/displayemployees");
+            }
+        }
+        catch(Exception ex)
+        {
+            System.Console.WriteLine("Exception: " + ex.Message);
+        }
+    }
+
+}
