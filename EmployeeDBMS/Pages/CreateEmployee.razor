@@ -83,18 +83,18 @@
 @code {
     Employee empModel = new();
     EditContext _editContext;
-    ValidationMessageStore msgStore;
+    //ValidationMessageStore msgStore;
     public IDictionary<string, string[]>? errorDictionary;
 
     protected override void OnInitialized()
     {
         _editContext = new EditContext(empModel);
-        msgStore = new ValidationMessageStore(_editContext);
+        //msgStore = new ValidationMessageStore(_editContext);
     }
 
     private async Task HandleValidSubmit()
     {
-        msgStore.Clear();
+        //msgStore.Clear();
 
         HttpResponseMessage responseMessage =  new();
 
@@ -122,11 +122,11 @@
                 errorDictionary = validationErrorDetails.Errors;
 
                 _editContext = new EditContext(empModel);
-                msgStore = new ValidationMessageStore(_editContext);
+                //msgStore = new ValidationMessageStore(_editContext);
             }
             else
             {
-                StateHasChanged();
+                //StateHasChanged();
                 navigationManager.NavigateTo("/displayemployees");
             }
 

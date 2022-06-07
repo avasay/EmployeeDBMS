@@ -24,7 +24,7 @@
             {
                 bool confirmDeletion = await jsRuntime.InvokeAsync<bool>("confirm", "Are you sure you want to delete?");
 
-                if (checkboxModels.Count != 0)
+                if (confirmDeletion)
                 {
                     for (int i = 0; i < checkboxModels.Count; i++)
                     {
@@ -35,10 +35,9 @@
                         responseMessage = await httpClient.DeleteAsync(urlID);
 
                     }
-
-                    StateHasChanged();
-                    navigationManager.NavigateTo("/displayemployees");
                 }
+                //StateHasChanged();
+                navigationManager.NavigateTo("/displayemployees");
             }
             else
             {

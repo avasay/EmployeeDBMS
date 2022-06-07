@@ -90,12 +90,12 @@
 
     public IDictionary<string, string[]>? errorDictionary;
     EditContext _editContext;
-    ValidationMessageStore msgStore;
+    //ValidationMessageStore msgStore;
 
     protected override async Task OnInitializedAsync()
     {
         _editContext = new EditContext(empModel);
-        msgStore = new ValidationMessageStore(_editContext);
+        //msgStore = new ValidationMessageStore(_editContext);
 
         HttpResponseMessage responseMessage = new();
         try
@@ -120,7 +120,7 @@
 
     private async Task HandleValidSubmit()
     {
-        msgStore.Clear();
+        //msgStore.Clear();
 
         HttpResponseMessage responseMessage =  new();
 
@@ -149,11 +149,11 @@
                 errorDictionary = validationErrorDetails.Errors;
                 
                 _editContext = new EditContext(empModel);
-                msgStore = new ValidationMessageStore(_editContext);
+                //msgStore = new ValidationMessageStore(_editContext);
             }
             else
             {
-                StateHasChanged();
+                //StateHasChanged();
                 navigationManager.NavigateTo("/displayemployees");
             }
         }
